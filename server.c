@@ -56,6 +56,12 @@ int main()
     } else
         printf("Read %d Bytes: '%s'\n", ret, readBuf);
 
+    if ((ret = send(acceptedSock, readBuf, strlen(readBuf), 0)) <= 0) {
+        perror("send");
+        ret = -1;
+    } else
+        printf("Wrote '%s' (%d Bytes)\n", readBuf, ret);
+
     close(acceptedSock);
 error:
     close(serverSock);
